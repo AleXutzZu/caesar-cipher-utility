@@ -33,10 +33,11 @@ double euclidean_distance(const double hist1[ALPHABET_SIZE], const double hist2[
 double cosine_distance(const double hist1[ALPHABET_SIZE], const double hist2[ALPHABET_SIZE]);
 
 /**
- * Shifts the text by one to the right
+ * Shifts the text with the specified shift
  * @param text the text to shift
+ * @param shift the shift to use
  */
-void shift_text(char *text);
+void shift_text(char *text, int shift);
 
 /**
  * Uses frequency analysis to compute the top 3 shifts by lowest distance

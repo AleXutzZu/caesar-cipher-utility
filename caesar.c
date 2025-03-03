@@ -1,6 +1,8 @@
 #include "caesar.h"
 #include <math.h>
 #include <ctype.h>
+#include <malloc.h>
+#include <string.h>
 
 void compute_histogram(const char *text, double histogram[ALPHABET_SIZE]) {
     for (unsigned int i = 0; text[i] != '\0'; ++i) {
@@ -42,15 +44,15 @@ double cosine_distance(const double hist1[ALPHABET_SIZE], const double hist2[ALP
     return result;
 }
 
-void shift_text(char *text) {
+void shift_text(char *text, int shift) {
     for (unsigned int i = 0; text[i] != '\0'; ++i) {
         if (isupper(text[i])) {
             int current_char = text[i] - 'A';
-            int next_char = (current_char + 1) % 26;
+            int next_char = (current_char + shift) % 26;
             text[i] = 'A' + next_char;
         } else if (islower(text[i])) {
             int current_char = text[i] - 'a';
-            int next_char = (current_char + 1) % 26;
+            int next_char = (current_char + shift) % 26;
             text[i] = 'a' + next_char;
         }
     }
@@ -62,8 +64,18 @@ void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[
 
     for (int i = 0; i < TOP_N; ++i) top_distances[i] = top_shifts[i] = -1;
 
+    char *shifted_text = calloc(strlen(text), sizeof(char));
+
+    if (shifted_text == NULL) {
+        exit(-1);
+    }
+
     for (int shift = 0; shift < 26; ++shift) {
         double cipher_histogram[ALPHABET_SIZE] = {0};
+
+        strcpy(shifted_text, text);
+
+        shift_text(shifted_text, shift);
         compute_histogram(text, cipher_histogram);
 
         double distance = distance_function(reference_distribution_histogram, cipher_histogram);
@@ -80,4 +92,6 @@ void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[
             }
         }
     }
+
+    free(shifted_text);
 }
