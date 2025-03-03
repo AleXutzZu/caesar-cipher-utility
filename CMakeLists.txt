@@ -5,4 +5,5 @@ set(CMAKE_C_STANDARD 99)
 
 add_executable(caesar_cipher_utility main.c
         caesar.c
-        caesar.h)
+        caesar.h
+        io_functions.c)

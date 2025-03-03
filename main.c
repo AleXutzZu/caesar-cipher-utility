@@ -26,6 +26,8 @@ void read_distribution(const char *filename, double distribution[ALPHABET_SIZE])
     }
 }
 
+void encryption_procedure();
+
 int main(void) {
     char command;
 
@@ -43,9 +45,10 @@ int main(void) {
         printf("Please enter an option: \n");
 
         scanf("%c", &command);
-
+        fgetc(stdin);
         switch (command) {
             case '1':
+                encryption_procedure();
                 break;
             case '2':
                 break;
