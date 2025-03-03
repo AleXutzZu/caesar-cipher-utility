@@ -11,6 +11,7 @@
 void read_distribution(const char *filename, double distribution[ALPHABET_SIZE]) {
     FILE *input = fopen(filename, "r");
     if (input == NULL) {
+        fprintf(stderr, "Error opening file: %s", filename);
         exit(-1);
     }
 
@@ -19,6 +20,7 @@ void read_distribution(const char *filename, double distribution[ALPHABET_SIZE])
     for (int i = 0; i < ALPHABET_SIZE; ++i) {
         fgets(buffer, sizeof buffer, input);
         if (sscanf(buffer, "%lf", &distribution[i]) != 1) {
+            fprintf(stderr, "Error reading floating point number");
             exit(-1);
         }
     }
@@ -26,6 +28,10 @@ void read_distribution(const char *filename, double distribution[ALPHABET_SIZE])
 
 int main(void) {
     char command;
+
+    double reference_distribution[ALPHABET_SIZE];
+
+    read_distribution("distribution.txt", reference_distribution);
 
     do {
         printf("Caesar Cipher Utility v1\n");
@@ -48,6 +54,7 @@ int main(void) {
             case '4':
                 break;
             case '0':
+                printf("Exiting...");
                 break;
             default:
                 break;
