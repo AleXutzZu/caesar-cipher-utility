@@ -1,32 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "caesar.h"
-
-/**
- * Reads the distribution of letters in the English alphabet from the specified filename. The file should
- * contain a line with a floating point number for each of the letters representing its frequency
- * @param filename The filename
- * @param distribution an array in which the read data is to be stored
- */
-void read_distribution(const char *filename, double distribution[ALPHABET_SIZE]) {
-    FILE *input = fopen(filename, "r");
-    if (input == NULL) {
-        fprintf(stderr, "Error opening file: %s", filename);
-        exit(-1);
-    }
-
-    char buffer[18];
-
-    for (int i = 0; i < ALPHABET_SIZE; ++i) {
-        fgets(buffer, sizeof buffer, input);
-        if (sscanf(buffer, "%lf", &distribution[i]) != 1) {
-            fprintf(stderr, "Error reading floating point number");
-            exit(-1);
-        }
-    }
-}
-
-void encryption_procedure();
+#include <stdbool.h>
+#include "io_functions.h"
 
 int main(void) {
     char command;
@@ -48,13 +22,16 @@ int main(void) {
         fgetc(stdin);
         switch (command) {
             case '1':
-                encryption_procedure();
+                run_caesar_known_shift(false);
                 break;
             case '2':
+                run_caesar_known_shift(true);
                 break;
             case '3':
+                print_frequencies();
                 break;
             case '4':
+                run_caesar_brute_force(reference_distribution);
                 break;
             case '0':
                 printf("Exiting...");

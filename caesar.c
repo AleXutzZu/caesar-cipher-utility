@@ -5,6 +5,7 @@
 #include <string.h>
 
 void compute_histogram(const char *text, double histogram[ALPHABET_SIZE]) {
+    for (unsigned int i = 0; i < ALPHABET_SIZE; ++i) histogram[i] = 0;
     for (unsigned int i = 0; text[i] != '\0'; ++i) {
         if (isupper(text[i])) {
             histogram[text[i] - 'A']++;
@@ -59,7 +60,7 @@ void shift_text(char *text, int shift) {
 }
 
 void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[TOP_N],
-                  double reference_distribution_histogram[ALPHABET_SIZE],
+                  const double reference_distribution_histogram[ALPHABET_SIZE],
                   double (*distance_function)(const double [], const double[])) {
 
     for (int i = 0; i < TOP_N; ++i) top_distances[i] = top_shifts[i] = -1;

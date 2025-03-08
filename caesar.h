@@ -48,5 +48,5 @@ void shift_text(char *text, int shift);
  * @param distance_function the function used to calculate distance
  */
 void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[TOP_N],
-                  double reference_distribution_histogram[ALPHABET_SIZE],
+                  const double reference_distribution_histogram[ALPHABET_SIZE],
                   double (*distance_function)(const double [], const double[]));
