@@ -65,7 +65,7 @@ void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[
 
     for (int i = 0; i < TOP_N; ++i) top_distances[i] = top_shifts[i] = -1;
 
-    char *shifted_text = calloc(strlen(text), sizeof(char));
+    char *shifted_text = calloc(strlen(text) + 1, sizeof(char));
 
     if (shifted_text == NULL) {
         exit(-1);
@@ -93,6 +93,5 @@ void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[
             }
         }
     }
-
     free(shifted_text);
 }
