@@ -77,7 +77,7 @@ void break_cipher(const char *text, int top_shifts[TOP_N], double top_distances[
         strcpy(shifted_text, text);
 
         shift_text(shifted_text, shift);
-        compute_histogram(text, cipher_histogram);
+        compute_histogram(shifted_text, cipher_histogram);
 
         double distance = distance_function(reference_distribution_histogram, cipher_histogram);
 

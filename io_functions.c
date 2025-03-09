@@ -113,8 +113,6 @@ void run_caesar_brute_force(const double reference_distribution[ALPHABET_SIZE]) 
     }
     char option;
 
-//    fgetc(stdin);
-
     double top_distances[TOP_N];
     int top_shifts[TOP_N];
 
@@ -124,6 +122,7 @@ void run_caesar_brute_force(const double reference_distribution[ALPHABET_SIZE]) 
         printf("Type 1 for Cosine\n");
         printf("Type 2 for Euclidean\n");
         scanf("%c", &option);
+        fgetc(stdin);
 
         if (option == '0') {
             break_cipher(text, top_shifts, top_distances,
@@ -144,5 +143,15 @@ void run_caesar_brute_force(const double reference_distribution[ALPHABET_SIZE]) 
         printf("The option is invalid, please try again\n");
     }
 
+    printf("The top %d texts are as follows:\n", TOP_N);
 
+    char *buffer_text = calloc(strlen(text), sizeof(char));
+
+    for (int i = 0; i < TOP_N; ++i) {
+        strcpy(buffer_text, text);
+        shift_text(buffer_text, top_shifts[i]);
+        printf("#%d (dist: %.2lf, shift: %d) -> %s\n", i + 1, top_distances[i], top_shifts[i], buffer_text);
+    }
+
+    free(buffer_text);
 }
