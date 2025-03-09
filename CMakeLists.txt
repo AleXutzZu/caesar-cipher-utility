@@ -8,3 +8,6 @@ add_executable(caesar_cipher_utility main.c
         caesar.h
         io_functions.c
         io_functions.h)
+
+
+add_executable(run_tests run_tests.c caesar.c io_functions.c)

@@ -1,4 +1,5 @@
 #include "caesar.h"
+#include <stdbool.h>
 
 #define MAX_SIZE 1000
 
