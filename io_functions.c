@@ -20,6 +20,7 @@ void read_distribution(const char *filename, double distribution[ALPHABET_SIZE])
             exit(-1);
         }
     }
+    fclose(input);
 }
 
 bool read_text(char dest[MAX_SIZE + 1]) {
@@ -46,6 +47,7 @@ bool read_text(char dest[MAX_SIZE + 1]) {
             }
 
             fgets(dest, MAX_SIZE + 1, file);
+            fclose(file);
             break;
         } else if (option == '1') {
             printf("Enter the text on the next line, max. %d characters: \n", MAX_SIZE);
